@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  measurement: 
+  remaining: 
+  threshold: 
+  user_on_it: 
+
+two:
+  measurement: 
+  remaining: 
+  threshold: 
+  user_on_it: 
