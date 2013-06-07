@@ -22,6 +22,12 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'html2haml'
+  gem 'debugger'
+end
+
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
@@ -37,6 +43,4 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-gem 'debugger'
 gem 'devise'
-gem 'html2haml'
