@@ -49,6 +49,16 @@ describe User do
       TrackingSubscription.count.should eq(@count)
     end
 
+    it "should nullify all associated 'user_on_it' from tracking when deleted" do
+      t1 = Tracking.new
+      t1.user_on_it = @user
+      t1.save
+
+      @user.destroy
+
+      t1.user_on_it.should be_nil
+    end
+
     it "should delete all associated groups_users entries when deleted" do
       count = GroupToUser.count
 
