@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130608233808) do
 
-  create_table "group_to_users", :id => false, :force => true do |t|
+  create_table "group_to_users", :force => true do |t|
     t.integer "group_id", :null => false
     t.integer "user_id",  :null => false
   end

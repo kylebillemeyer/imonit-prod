@@ -3,5 +3,5 @@ class Tracking < ActiveRecord::Base
   belongs_to :group
   belongs_to :item
   belongs_to :user_on_it, :class_name => 'User'
-  has_many :tracking_subscriptions
+  has_many :tracking_subscriptions, :dependent => :destroy
 end

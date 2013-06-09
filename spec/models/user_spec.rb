@@ -56,7 +56,7 @@ describe User do
 
       @user.destroy
 
-      t1.user_on_it.should be_nil
+      Tracking.find(t1.id).user_on_it.should be_nil
     end
 
     it "should delete all associated groups_users entries when deleted" do
