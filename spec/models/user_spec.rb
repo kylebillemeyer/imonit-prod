@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  before(:all) do
+  before(:each) do
     @user = User.new(:email => 'kyle@example.com', :first => 'kyle', :last => 'billemeyer')
     @user.save
   end
@@ -31,6 +31,35 @@ describe User do
 
       @user.trackings.count.should eq(1)
     end
+
+    it "should delete all associated tracking subscriptions when deleted" do
+      ts1 = TrackingSubscription.new
+      ts2 = TrackingSubscription.new
+      ts1.user = @user
+      ts2.user = @user
+
+      TrackingSubscription.transaction do
+        @count = TrackingSubscription.count
+        ts1.save
+        ts2.save
+      end
+
+      @user.destroy
+
+      TrackingSubscription.count.should eq(@count)
+    end
+
+    it "should delete all associated groups_users entries when deleted" do
+      count = GroupToUser.count
+
+      group = Group.new
+      group.users.push(@user)
+      group.save
+
+      @user.destroy
+
+      GroupToUser.count.should eq(count)
+    end
   end
 
   after(:all) do
@@ -38,5 +67,6 @@ describe User do
     Group.delete_all
     TrackingSubscription.delete_all
     Tracking.delete_all
+    GroupToUser.delete_all
   end
 end

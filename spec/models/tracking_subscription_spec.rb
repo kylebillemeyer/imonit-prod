@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TrackingSubscription do
-  before(:all) do
+  before(:each) do
     @ts = TrackingSubscription.new
   end
 

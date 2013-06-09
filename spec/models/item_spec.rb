@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Item do
-  before(:all) do
+  before(:each) do
     @item = Item.new(:name => 'test item', :desc => 'test description')
     @item.save
   end
@@ -13,6 +13,23 @@ describe Item do
       t.save
 
       @item.trackings.count.should eq(1)
+    end
+
+    it "should delete all associated trackings when deleted" do
+      t1 = Tracking.new
+      t2 = Tracking.new
+      t1.item = @item
+      t2.item = @item
+
+      Tracking.transaction do
+        @count = Tracking.count
+        t1.save
+        t2.save
+      end
+
+      @item.destroy
+
+      Tracking.count.should eq(@count)
     end
 
     after(:all) do

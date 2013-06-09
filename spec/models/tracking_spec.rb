@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Tracking do
-  before(:all) do
+  before(:each) do
     @t = Tracking.new
     @t.save
   end
@@ -40,6 +40,23 @@ describe Tracking do
       @t.save
 
       @t.user_on_it.id.should eq(uoi.id)
+    end
+
+    it "should delete all associated tracking subscriptions when deleted" do
+      ts1 = TrackingSubscription.new
+      ts2 = TrackingSubscription.new
+      ts1.tracking = @t
+      ts2.tracking = @t
+
+      TrackingSubscription.transaction do
+        @count = TrackingSubscription.count
+        ts1.save
+        ts2.save
+      end
+
+      @t.destroy
+
+      TrackingSubscription.count.should eq(@count)
     end
   end
 

@@ -11,18 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130607015653) do
+ActiveRecord::Schema.define(:version => 20130608233808) do
+
+  create_table "group_to_users", :id => false, :force => true do |t|
+    t.integer "group_id", :null => false
+    t.integer "user_id",  :null => false
+  end
 
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.text     "desc"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "groups_users", :id => false, :force => true do |t|
-    t.integer "group_id", :null => false
-    t.integer "user_id",  :null => false
   end
 
   create_table "items", :force => true do |t|

@@ -1,5 +1,6 @@
 class Group < ActiveRecord::Base
   attr_accessible :desc, :name
   has_many :trackings
-  has_and_belongs_to_many :users
+  has_many :group_to_user
+  has_many :users, :through => :group_to_user
 end
