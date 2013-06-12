@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe TrackingSubscription do
   before(:each) do
-    @ts = TrackingSubscription.new
+    @ts = FactoryGirl.build(:tracking_subscription)
   end
 
   context "A tracking subscription (in general)" do
     it "should belong to a user" do
-      user = User.new
+      user = FactoryGirl.build(:user)
       user.save
       @ts.user_id = user.id
       @ts.save
@@ -16,7 +16,7 @@ describe TrackingSubscription do
     end
 
     it "should belong to a tracking" do
-      t = Tracking.new
+      t = FactoryGirl.build(:tracking)
       t.save
       @ts.tracking_id = t.id
       @ts.save

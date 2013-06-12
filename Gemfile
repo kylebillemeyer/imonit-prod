@@ -23,10 +23,20 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'html2haml'
   gem 'debugger'
+  gem 'factory_girl_rails'
 end
+
+group :development do
+  gem 'html2haml'
+end
+
+
+group :test do
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+end
+
 
 gem 'jquery-rails'
 
@@ -44,3 +54,4 @@ gem 'jquery-rails'
 
 # To use debugger
 gem 'devise'
+gem 'valid_email'

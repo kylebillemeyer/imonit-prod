@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
-    @user = User.new(:email => 'kyle@example.com', :first => 'kyle', :last => 'billemeyer')
+    @user = FactoryGirl.build(:user)
     @user.save
   end
 
   context "A user (in general)" do
     it "should have many groups" do
-      group = Group.new
+      group = FactoryGirl.build(:group)
       group.users.push(@user)
       group.save
 
@@ -16,7 +16,7 @@ describe User do
     end
 
     it "should have many tracking subscriptions" do
-      ts = TrackingSubscription.new
+      ts = FactoryGirl.build(:tracking_subscription)
       ts.user = @user
       ts.save
 
@@ -25,7 +25,7 @@ describe User do
     end
 
     it "should have many trackings" do
-      t = Tracking.new
+      t = FactoryGirl.build(:tracking)
       t.user_on_it = @user
       t.save
 
@@ -33,8 +33,8 @@ describe User do
     end
 
     it "should delete all associated tracking subscriptions when deleted" do
-      ts1 = TrackingSubscription.new
-      ts2 = TrackingSubscription.new
+      ts1 = FactoryGirl.build(:tracking_subscription)
+      ts2 = FactoryGirl.build(:tracking_subscription)
       ts1.user = @user
       ts2.user = @user
 
@@ -50,7 +50,7 @@ describe User do
     end
 
     it "should nullify all associated 'user_on_it' from tracking when deleted" do
-      t1 = Tracking.new
+      t1 = FactoryGirl.build(:tracking)
       t1.user_on_it = @user
       t1.save
 
@@ -62,13 +62,42 @@ describe User do
     it "should delete all associated groups_users entries when deleted" do
       count = GroupToUser.count
 
-      group = Group.new
+      group = FactoryGirl.build(:group)
       group.users.push(@user)
       group.save
 
       @user.destroy
 
       GroupToUser.count.should eq(count)
+    end
+
+    it "should require email address" do
+      should validate_presence_of(:email)
+    end
+    it "should have unique email addresses" do 
+      should validate_uniqueness_of(:email)
+    end
+    it "should not allow invalid email addresses" do
+      should_not allow_value('', 'a', '@', '@a', 'a@', 'a@a', 'a@a.', 'a@.a').for(:email)
+    end
+    it "should allow valid email addresses" do
+      should allow_value('a1@a1.a1', 'a1.a1@a1.a1').for(:email)
+    end
+
+    it "should require first name" do
+      should validate_presence_of(:first)
+    end
+    it "should allow any character" do
+      should allow_value('asd#$#%61651').for(:first)
+    end
+
+    it "should allow any character" do
+      should allow_value('asd#$#%61651').for(:last)
+    end
+    it "should default to an empty last name" do
+      user = FactoryGirl.build(:user, last: nil)
+      user.default_values
+      user.last.should eq('')
     end
   end
 

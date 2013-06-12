@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Item do
   before(:each) do
-    @item = Item.new(:name => 'test item', :desc => 'test description')
+    @item = FactoryGirl.build(:item)
     @item.save
   end
 
   context "An item (in general)" do
     it "should have many trackings" do
-      t = Tracking.new
+      t = FactoryGirl.build(:tracking)
       t.item = @item
       t.save
 
@@ -16,8 +16,8 @@ describe Item do
     end
 
     it "should delete all associated trackings when deleted" do
-      t1 = Tracking.new
-      t2 = Tracking.new
+      t1 = FactoryGirl.build(:tracking)
+      t2 = FactoryGirl.build(:tracking)
       t1.item = @item
       t2.item = @item
 
@@ -32,9 +32,25 @@ describe Item do
       Tracking.count.should eq(@count)
     end
 
-    after(:all) do
+    it "should require name" do
+      should validate_presence_of(:name)
+    end
+    it "should allow any character" do
+      should allow_value('asd#$#%61651').for(:name) 
+    end
+
+    it "should allow for description to be more than 256 characters" do
+      should allow_value('a'*257).for(:desc)
+    end  
+    it "should default to an empty description" do
+      item = FactoryGirl.build(:item, desc: nil)
+      item.default_values
+      item.desc.should eq('')
+    end
+  end
+
+  after(:all) do
       Item.delete_all
       Tracking.delete_all
     end
-  end
 end
