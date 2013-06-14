@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'enumerize/integrations/rspec.rb'
 
 describe Tracking do
   before(:each) do
@@ -77,7 +78,7 @@ describe Tracking do
       should validate_presence_of(:measurement)
     end
     it "should be enumerated" do
-      should enumerize(:sex).in(:count, :cm, :in, :ft, :m, :yd, :lbs, :fl_oz, :g, :oz, :kg, :lbs, :liters, :gal).with_default(:male) 
+      should enumerize(:measurement).in(:count, :cm, :in, :ft, :m, :yd, :lbs, :fl_oz, :g, :oz, :kg, :lbs, :liters, :gal).with_default(:count) 
     end
 
     it "should be optional" do

@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/brainspec/enumerize.git
+  revision: 5ae603b45113ffe8b56e761adffbd048ecb9e4d8
+  branch: master
+  specs:
+    enumerize (0.6.1)
+      activesupport (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -165,6 +173,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   debugger
   devise
+  enumerize!
   execjs
   factory_girl_rails
   haml-rails

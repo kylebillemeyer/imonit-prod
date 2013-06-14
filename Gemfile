@@ -55,3 +55,4 @@ gem 'jquery-rails'
 # To use debugger
 gem 'devise'
 gem 'valid_email'
+gem 'enumerize', git: 'git://github.com/brainspec/enumerize.git', branch: 'master'

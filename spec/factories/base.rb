@@ -20,7 +20,7 @@ FactoryGirl.define do
   end
 
   factory :tracking do
-    measurement 2
+    measurement :cm
     threshold 4
     remaining 10
   end

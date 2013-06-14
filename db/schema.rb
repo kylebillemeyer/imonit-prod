@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130608233808) do
+ActiveRecord::Schema.define(:version => 20130614011827) do
 
   create_table "group_to_users", :force => true do |t|
     t.integer "group_id", :null => false
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(:version => 20130608233808) do
   end
 
   create_table "trackings", :force => true do |t|
-    t.integer  "measurement"
     t.integer  "remaining"
     t.integer  "threshold"
     t.integer  "user_on_it_id"
